@@ -1,5 +1,4 @@
 import actionTypes from '../Constants/actionTypes';
-
 const {
   ADD_WORD,
   REMOVE_WORD,

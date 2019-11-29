@@ -1,5 +1,4 @@
 import actionTypes from '../Constants/actionTypes';
-
 const initialState = {
   startTimeSeconds: 0,
   durationMilliseconds: 100000,
