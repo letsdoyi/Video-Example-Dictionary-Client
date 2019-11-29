@@ -1,68 +1,127 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# getSample (Client and Server)
 
-## Available Scripts
+This application provides native speakers' language usages by YouTube videos.
 
-In the project directory, you can run:
+[[Link to demo video]](https://www.youtube.com/watch?v=OFxVRNepHiw)
 
-### `yarn start`
+![](getSample_4Screenshots.png)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- Login with Google (Google Oauth, Passport.js)
 
-### `yarn test`
+- Search words by Language and Category in YouTube video scripts (Google YouTube Data API)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Start a video from a scene including a searched word
 
-### `yarn build`
+- Highlight a searched word
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Move video play time to clicked text time
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- Sync scripts to video scenes with highlighting (YouTube iFrame Player API)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Search word definitions, synonyms, parts of speech in dictionary (Words API)
 
-### `yarn eject`
+- Save and delete words in user's own word lists
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Installation
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+npm install
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+npm start
 
-## Learn More
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Tech Skills
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Client Side
 
-### Code Splitting
+- JavaScript (ES2015+)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+- React for component-based-architechture
 
-### Analyzing the Bundle Size
+- Redux for state management
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+- HTTP request using Axios
 
-### Making a Progressive Web App
+- Google YouTube Data API
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+- Google OAuth
 
-### Advanced Configuration
+- Passport.js, authentication middleware from node.js
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+- Sass, stylesheet
 
-### Deployment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+### Server Side
 
-### `yarn build` fails to minify
+- Node.js
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- Express, Node.js web-application framework
+
+- Mongo DB Atlas
+
+- Mongoose, object data modeling library for Mongo DB Atlas
+
+- Proxy, for client-server integration
+
+
+
+## Test
+
+- Jest and Enzyme for Unit test
+
+- Cypress, JavaScript End-to-End testing framework
+
+
+
+## Version and Schedule Control
+
+- Git, Github
+
+- Trello for managing scheluled tasks
+
+
+
+## Challenges
+
+- Short Time Period, 2 weeks: Task Time Schedule Management
+
+  2 weeks, a short time for completing this project got me under pressure. I separated this project into a small task unit according to my deadline. However, sometimes a small task took a longer time than I expected because I was faced with unexpected situations. For instance, before starting this project, I could not get YouTube subscription Infomation which got successfully when I tested YouTube Data API because my website domain is not verified. Verifying takes 2 - 3 weeks. I ended up consumed much time searching for solutions. I learned how important testing before starting a project is and practiced to decide what is a priority.
+
+- Short Quota Limit: YouTube Data API
+
+  To search a word in this application, it goes through steps fetching Youtube data. in the first plan, it got 10 - 15 Youtube channel ids in categories which user selected and then, 25 video ids per Youtube Channel by YouTube Data API. They are up to 1,125 times of API requests, which are exceeded daily quota limit with 3 - 4 trials. I tried to reset quota by refreshing the API key or sent a request email to reset the quota. However, they were time-consuming tasks and were not enough to develop the Application. So I saved the channel ids and the video ids in a file and using the data instead of request data to Youtube whenever getting every search request. This method is not fetching the lastest video ids in a channel but is able to deal with the more data requests from the client-side.
+
+- Search Logic Implememt: Getting Accurate Search Result
+
+  This application traces timed text captions to find a word. Designing accurate search logic was challenging because there were many cases to consider. For example, finding a word, 'test' needs to exclude words started with test- such as 'testimony' and 'testify'. Also, it needs to include ended with special characters and spacing. The search logic in this application deals with typical cases such as '!', ',' and spacing. It could make me practice thinking about search edge cases. Next time, I would like to design logic by covering with the more edge cases than in this application.
+
+- Open Module Error Handling: Try / Catch, Continuous Flow
+
+  In this application, an open module named Youtube Captions Scraper is used. However, because it mainly designed fetching captions about one video, in this application the module didn't work perfectly. while finding captions of videos, if fetching video captions is not available, my search word API processing stopped. Therefore, in case of no video caption, I caught the module error by using a try/catch statement and continuously skip to the next video id.
+
+- Video timed transcript Sync Implement
+  The implementation of captions synced to a video player was challenging. It solved with Redux and Youtube API. I changed a state at the begin and end of timed-text caption by Youtube iframe API and highlighted relevant caption section checking timed text if in between the times. About moving playtime to the time of clicked caption, when the same caption was clicked, the player was not moving to the start time because of not rerendering with the same state value. So, whenever the same caption was clicked, I changed state value as +0.001 or -0.001. I could understand about Redux and React deeply through these challenges.
+
+## Things To do
+
+- [ ] Practice scheduling task
+
+- [ ] Improving search speed
+
+- [ ] Improving the search logic
+
+- [ ] Adding a word in the word list link to search result
+
+- [ ] Adding scrolling to hightlight caption
+
+- [ ] Adding Youtube channel register function for providing the latest video data
+
+- [ ] Changing fetching local data to realtime data by requesting to YouTube
+
+- [ ] Improving Reactive design for component reusability
+
+- [ ] Refactoring for code reusability
