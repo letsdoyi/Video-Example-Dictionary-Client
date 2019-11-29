@@ -28,6 +28,24 @@ This application provides native speakers' language usages by YouTube videos.
 ## Installation
 
 ```
+// Server
+
+git clone https://github.com/letsdoyi/getSample-Server.git
+
+cd getSample-Server
+
+npm install
+
+npm run dev
+
+cd ..
+
+// Client
+
+git clone https://github.com/letsdoyi/getSample-Client.git
+
+cd getSample-Client
+
 npm install
 
 npm start
