@@ -97,7 +97,7 @@ npm start
 
 ## Version and Schedule Control
 
-- Git, Github
+- Git, Github [[Previous Git Commit Records Link]](https://github.com/letsdoyi/getSample_git-records)
 
 - Trello for managing scheluled tasks
 
