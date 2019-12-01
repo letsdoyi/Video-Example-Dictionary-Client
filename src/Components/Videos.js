@@ -51,7 +51,7 @@ function Videos(props) {
     videoInfo = videos.info[videoState.order];
     videoId = videoInfo.id;
     startIndex = videoInfo.startIndex;
-
+    // let nextIndex;
     captions = videos.info[videoState.order].captions.map(
       (caption, index) => {
         const captionStart = Number(caption.start);
@@ -61,13 +61,19 @@ function Videos(props) {
         if (index === startIndex) {
           captionClassBox.push('highlight-pink');
         }
+        console.log(captionStart, '<=',videoState.currentTime, '<=',captionStart + captionDuration)
         if (
-          captionStart < videoState.currentTime &&
-          videoState.currentTime <
-            captionStart + captionDuration + 0.1
+          captionStart <= videoState.currentTime &&
+          videoState.currentTime <=
+            captionStart + captionDuration
         ) {
+          // nextIndex = index + 1;
           captionClassBox.push('highlight-gray');
         }
+
+        // if (nextIndex === index) {
+        //   captionClassBox.push('highlight-gray');
+        // }
 
         return (
           <div
@@ -120,6 +126,8 @@ function Videos(props) {
       // end: videoState.startTimeSeconds + videoState.durationMilliseconds / 1000,
       modestbranding: 1,
       loop: 1,
+      showinfo:0,
+      controls:0
     },
   };
 
@@ -154,6 +162,8 @@ function Videos(props) {
   function onPlayerPlay(event) {
     console.log('onPlayerPlay 실행');
     console.log(event.target.getCurrentTime());
+    // const currentTime = event.target.getCurrentTime();
+    // updateCurrentTimeTo(currentTime);
   }
 
   function onPlayerPause(event) {
@@ -162,7 +172,7 @@ function Videos(props) {
     }, videoState.durationMilliseconds);
     const currentTime = event.target.getCurrentTime();
     console.log(event.target.getCurrentTime());
-    updateCurrentTimeTo(currentTime);
+    updateCurrentTimeTo(currentTime + 3.93);
     event.target.playVideo();
   }
 

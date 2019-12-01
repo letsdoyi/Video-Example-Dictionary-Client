@@ -5,6 +5,8 @@ const {
   TYPED_WORD,
   CHECKED_LANGUAGE,
   CHECKED_CATEGORY,
+  RESET_STATE_OF,
+  SELECTED
 } = actionTypes;
 const { SELECTION } = CONSTANTS;
 const initialState = {
@@ -35,6 +37,12 @@ export function selectedReducer(state = initialState, action) {
         state.categories.push(action.data);
       }
       return { ...state };
+
+    case `${RESET_STATE_OF}_${SELECTED}`:
+      return {
+        language: 'en',
+        categories: [],
+      };
 
     default:
       return state;

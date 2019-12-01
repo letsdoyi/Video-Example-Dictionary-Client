@@ -57,7 +57,7 @@ function App(props) {
     console.log('READEY TO GET VIDEOS');
     const requestVideoData = async () => {
       const postResponse = await axios.post(
-        REQUEST_URL.POST_SEARCH_RESULT_FOR_VIDEO,
+        `${REQUEST_URL.POST_SEARCH_RESULT_FOR_VIDEO}/query=${selected.word}&language=${selected.language}&categories=${selected.categories}`,
         {
           selected,
         },

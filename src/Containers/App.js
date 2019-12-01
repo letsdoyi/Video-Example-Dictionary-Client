@@ -20,6 +20,7 @@ const {
   READY_TO_SHOW_MODAL,
   NOT_READY_TO_SHOW_MODAL,
   UPDATE_MODAL_MESSAGE,
+  RESET_STATE_OF
 } = actionTypes;
 
 const mapStateToProps = state => {
@@ -135,6 +136,11 @@ const mapDispatchToProps = dispatch => {
         data: text,
       });
     },
+    resetStateOf: function(stateName){
+      dispatch({
+        type: `${RESET_STATE_OF}_${stateName}`
+      });
+    }
   };
 };
 
