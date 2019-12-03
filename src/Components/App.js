@@ -6,8 +6,7 @@ import Home from '../Components/Home';
 import Videos from '../Components/Videos';
 import MyWords from '../Components/MyWords';
 import axios from 'axios';
-import secondsConverter from 'seconds-converter';
-import { oneToTwoDigits } from '../Utility';
+import { oneToTwoDigits, secondsConverter } from '../Utility';
 import './Common.scss';
 import './App.scss';
 import REQUEST_URL from '../Constants/requestUrl';
@@ -80,9 +79,10 @@ function App(props) {
       );
       console.log('fromServer:', getResponse.data.searched);
       const foundWord = getResponse.data.searched.word;
+      debugger
       let info = getResponse.data.searched.videosInfo;
 
-      if (info) {
+      if (info.length !== 0) {
         info.forEach(videoInfo => {
           videoInfo.captions.forEach(caption => {
             const startTime = Math.floor(Number(caption.start));
@@ -95,9 +95,11 @@ function App(props) {
             caption.startForDisplay = `${mins}:${secs}`;
           });
         });
+        getVideoData({ foundWord, info });
+      } else {
+        console.log('Cannot find any video!')
       }
       console.log('가져온 비디오 정보', info);
-      getVideoData({ foundWord, info });
     };
     fetchVideoData();
 
