@@ -20,7 +20,7 @@
     "react-scripts": "3.2.0",
     "react-youtube": "^7.9.0",
     "redux": "^4.0.4",
-    "scroll-to-element": "^2.0.3",
+    "scroll-to-element": "^2.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
