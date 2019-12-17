@@ -12,6 +12,8 @@ function MyWords(props) {
     onReadyModal,
     isReadyToShowModal,
     UpdateModalMessage,
+    getVideoData,
+    history,
   } = props;
   console.log(props);
 
@@ -35,7 +37,18 @@ function MyWords(props) {
         );
       });
       return (
-        <div className="word-wrapper">
+        <div
+          className="word-wrapper"
+          onClick={() => {
+            const word = myWords[key]['word'];
+            const videosInfo = myWords[key]['videosInfo'];
+            console.log('history', history);
+            if (videosInfo) {
+              getVideoData({ foundWord: word, info: videosInfo });
+              history.push('/videos');
+            }
+          }}
+        >
           <div className="word-headline">
             <RemoveCircleIcon
               className="remove-circle-icon"

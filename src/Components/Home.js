@@ -14,8 +14,8 @@ function Home(props) {
     onVideoSearchSubmit,
     history,
   } = props;
-  const { SELECTION } = CONSTANTS;
   console.log('history', history);
+
   return (
     <div className="Home">
       <div className="headline">Search words, Enjoy reality</div>

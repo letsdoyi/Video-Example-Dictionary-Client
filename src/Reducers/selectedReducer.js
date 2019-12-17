@@ -6,7 +6,7 @@ const {
   CHECKED_LANGUAGE,
   CHECKED_CATEGORY,
   RESET_STATE_OF,
-  SELECTED
+  SELECTED,
 } = actionTypes;
 const { SELECTION } = CONSTANTS;
 const initialState = {

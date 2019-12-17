@@ -1,5 +1,10 @@
-import actionTypes from "../Constants/actionTypes";
-const { LOADED_DICTIONARY_DATA, RESET_STATE_OF, DICTIONARY} = actionTypes;
+import actionTypes from '../Constants/actionTypes';
+const {
+  LOADED_DICTIONARY_DATA,
+  RESET_STATE_OF,
+  DICTIONARY,
+  ADD_VIDEO_INFO_TO_DICTIONARY,
+} = actionTypes;
 
 export function dictionaryReducer(state = null, action) {
   switch (action.type) {
@@ -7,7 +12,13 @@ export function dictionaryReducer(state = null, action) {
       return action.data;
 
     case `${RESET_STATE_OF}_${DICTIONARY}`:
-        return null;
+      return null;
+
+    case ADD_VIDEO_INFO_TO_DICTIONARY:
+      return {
+        videosInfo: action.data,
+        ...state,
+      };
 
     default:
       return state;

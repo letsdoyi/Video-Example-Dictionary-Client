@@ -3,9 +3,12 @@ import stateNames from '../Constants/stateNames';
 
 const initialState = {
   foundWord: null,
-  info: []
+  info: [],
 };
-const { LOADED_VIDEO_DATA, RESET_STATE_OF } = actionTypes;
+const {
+  LOADED_VIDEO_DATA,
+  RESET_STATE_OF,
+} = actionTypes;
 const { VIDEOS } = stateNames;
 
 function videosReducer(state = initialState, action) {
@@ -14,15 +17,14 @@ function videosReducer(state = initialState, action) {
       return action.data;
 
     case `${RESET_STATE_OF}_${VIDEOS}`:
-      debugger;
       return {
         foundWord: null,
-        info: []
+        info: [],
       };
 
     default:
       return {
-        ...state
+        ...state,
       };
   }
 }

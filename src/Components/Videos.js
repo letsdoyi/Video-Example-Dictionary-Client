@@ -8,6 +8,8 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import './Common.scss';
 import './Videos.scss';
+import videoStateReducer from '../Reducers/videoStateReducer';
+let clickedCaptionStart;
 
 function Videos(props) {
   const {
@@ -17,7 +19,7 @@ function Videos(props) {
     updateStartTimeTo,
     updateCurrentTo,
     updateCurrentTimeTo,
-    updateVideoOrder,
+    updateVideoOrder
   } = props;
   let captions;
   let videoId;
@@ -38,9 +40,7 @@ function Videos(props) {
       videoInfo = videos.info[videoState.order];
       videoId = videoInfo.id;
       startIndex = videoInfo.startIndex;
-      firstStartTime = Math.floor(
-        Number(videoInfo.captions[startIndex].start),
-      );
+      firstStartTime = Math.floor(Number(videoInfo.captions[startIndex].start));
       firstDuration = Number(videoInfo.captions[startIndex].dur);
       updateStartTimeTo(firstStartTime, firstDuration);
       updateCurrentTimeTo(firstStartTime);
@@ -52,66 +52,76 @@ function Videos(props) {
     videoId = videoInfo.id;
     startIndex = videoInfo.startIndex;
     // let nextIndex;
-    captions = videos.info[videoState.order].captions.map(
-      (caption, index) => {
-        const captionStart = Number(caption.start);
-        const captionDuration = Number(caption.dur);
-        let count = 0;
-        const captionClassBox = ['caption-container'];
-        if (index === startIndex) {
-          captionClassBox.push('highlight-pink');
-        }
-        console.log(captionStart, '<=',videoState.currentTime, '<=',captionStart + captionDuration)
-        if (
-          captionStart <= videoState.currentTime &&
-          videoState.currentTime <=
-            captionStart + captionDuration
-        ) {
-          // nextIndex = index + 1;
-          captionClassBox.push('highlight-gray');
-        }
+    captions = videos.info[videoState.order].captions.map((caption, index) => {
+      let count = 0;
+      const captionStart = Number(caption.start);
+      const captionDuration = Number(caption.dur);
+      const captionClassBox = ['caption-container'];
+      if (index === startIndex) {
+        captionClassBox.push('highlight-pink');
+      }
+      console.log(
+        captionStart,
+        '<=',
+        videoState.currentTime,
+        '<=',
+        captionStart + captionDuration
+      );
+      if (
+        captionStart <= videoState.currentTime &&
+        videoState.currentTime <= captionStart + captionDuration + 0.3
+      ) {
+        // nextIndex = index + 1;
+        captionClassBox.push('highlight-gray');
+      }
 
-        // if (nextIndex === index) {
-        //   captionClassBox.push('highlight-gray');
-        // }
+      // if (nextIndex === index) {
+      //   captionClassBox.push('highlight-gray');
+      // }
 
-        return (
-          <div
-            key={index}
-            className={captionClassBox.join(' ')}
-            onClick={() => {
-              //Prevent from not rendering of the same state
-              if (count === 0) {
-                caption.start -= 0.0001;
-                count++;
-              } else {
-                caption.start += 0.0001;
-                count--;
-              }
-              updateStartTimeTo(caption.start, caption.dur);
-            }}
-          >
-            <span className="caption-content start">
-              {caption.startForDisplay}
-            </span>
-            <span className="caption-content text">
-              {caption.text}
-            </span>
-          </div>
-        );
-      },
-    );
+      return (
+        <div
+          key={index}
+          className={captionClassBox.join(' ')}
+          onClick={() => {
+            //Prevent from not rendering of the same state
+            // debugger;
+            // if(clickedCaptionStart !== caption.start + 0.001){
+            //   clickedCaptionStart = caption.start + 0.001;
+            // } else if(clickedCaptionStart !== caption.start - 0.001){
+            //   clickedCaptionStart = caption.start - 0.001
+            // }
+            console.log('count', count);
+            if (count === 0) {
+              caption.start -= 0.00000000001;
+              count++;
+            }
+            // } else {
+            //   caption.start += 0.0001;
+            //   count--;
+            // }
+            updateCurrentTo('play');
+            updateStartTimeTo(caption.start - 0.3, caption.dur);
+          }}
+        >
+          <span className='caption-content start'>
+            {caption.startForDisplay}
+          </span>
+          <span className='caption-content text'>{caption.text}</span>
+        </div>
+      );
+    });
     // } else if (videos.foundWord && videos.info.length === 0) {
     //   return (
-    //     <div className="Videos">
-    //       <div className="error-no-videos">
+    //     <div className='Videos'>
+    //       <div className='error-no-videos'>
     //         <div>Cannot find searched word in the categories.</div>
     //       </div>
     //     </div>
     //   );
   } else {
     return (
-      <div className="videos-loader">
+      <div className='videos-loader'>
         <img src={loader} />
         {dictionary && <Dictionary {...props} />}
       </div>
@@ -126,9 +136,9 @@ function Videos(props) {
       // end: videoState.startTimeSeconds + videoState.durationMilliseconds / 1000,
       modestbranding: 1,
       loop: 1,
-      showinfo:0,
-      controls:0
-    },
+      showinfo: 0,
+      controls: 0
+    }
   };
 
   function clearTimerArr(arr) {
@@ -153,8 +163,17 @@ function Videos(props) {
   function onPlayerStateChange(event) {
     console.log('onPlayerStateChange 실행');
     console.log('onStateChange 타이머 모음 배열:', timers);
-
     console.log(event.data);
+    switch (videoState.current) {
+      case 'force_stop':
+        event.target.stopVideo();
+
+      // case 'play':
+      //   event.target.playVideo();
+
+      // default:
+      //   event.target.pauseVideo();
+    }
     //event.data
     // {0: 종료, 1: 재생, 2:일시중지, 3: 버퍼링}
   }
@@ -162,18 +181,24 @@ function Videos(props) {
   function onPlayerPlay(event) {
     console.log('onPlayerPlay 실행');
     console.log(event.target.getCurrentTime());
+    // currentPlayTime = event.target.getCurrentTime();
     // const currentTime = event.target.getCurrentTime();
     // updateCurrentTimeTo(currentTime);
   }
 
   function onPlayerPause(event) {
-    timer = setTimeout(() => {
-      event.target.pauseVideo();
-    }, videoState.durationMilliseconds);
-    const currentTime = event.target.getCurrentTime();
-    console.log(event.target.getCurrentTime());
-    updateCurrentTimeTo(currentTime + 3.93);
-    event.target.playVideo();
+    console.log('event target', event.target);
+    if (videoState.current === 'force_stop') {
+      event.target.stopVideo();
+    } else {
+      timer = setTimeout(() => {
+        event.target.pauseVideo();
+      }, videoState.durationMilliseconds);
+      const currentTime = event.target.getCurrentTime();
+      console.log(event.target.getCurrentTime());
+      updateCurrentTimeTo(currentTime + 3.93);
+      event.target.playVideo();
+    }
   }
 
   // CatpionsContainer size toggle
@@ -185,10 +210,10 @@ function Videos(props) {
   }
 
   return (
-    <div className="Videos">
+    <div className='Videos'>
       {dictionary && <Dictionary {...props} />}
-      <span className="foundWord">{videos.foundWord}</span>
-      <div className="player-and-captions-container">
+      <span className='foundWord'>{videos.foundWord}</span>
+      <div className='player-and-captions-container'>
         <Youtube
           videoId={videoId}
           opts={options}
@@ -197,47 +222,47 @@ function Videos(props) {
           onPlay={onPlayerPlay}
           onPause={onPlayerPause}
         />
-        <div className="player"></div>
+        <div className='player'></div>
 
         <div className={captionsContainerClassBox.join(' ')}>
-          <div className="caption-title-wrapper">
-            <h1 className="captions-title">Transcript</h1>
+          <div className='caption-title-wrapper'>
+            <h1 className='captions-title'>Transcript</h1>
             <Switch
               defaultChecked
-              value="checkedA"
+              value='checkedA'
               inputProps={{ 'aria-label': 'secondary checkbox' }}
               onClick={() => onSwitchToggle()}
             />
           </div>
           {/* caption-title-wrapper */}
-          <div className={captionsWrapperClassBox.join(' ')}>
-            {captions}
-          </div>
+          <div className={captionsWrapperClassBox.join(' ')}>{captions}</div>
           {/* captionsWrapper */}
         </div>
         {/* captionsContainerClassBox */}
 
-        <div className="video-controller-container">
+        <div className='video-controller-container'>
           <Button
-            size="large"
+            size='large'
             onClick={() => updateVideoOrder(-1)}
             disabled={videoState.order <= 0}
-            color="secondary"
+            color='secondary'
           >
             <KeyboardArrowLeft />
             BACK
           </Button>
-          <div
-            className="repeat-button"
-            onClick={() => updateCurrentTo('repeat')}
-          >
-            repeat
-          </div>
+          {videoState.current === 'play' && (
+            <div
+              className='repeat-button'
+              onClick={() => updateCurrentTo('force_stop')}
+            >
+              STOP
+            </div>
+          )}
           <Button
-            size="large"
+            size='large'
             onClick={() => updateVideoOrder(1)}
             disabled={videoState.order >= videos.info.length - 1}
-            color="secondary"
+            color='secondary'
           >
             NEXT
             <KeyboardArrowRight />

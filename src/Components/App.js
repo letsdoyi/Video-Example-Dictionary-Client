@@ -14,6 +14,7 @@ import REQUEST_URL from '../Constants/requestUrl';
 function App(props) {
   console.log(props);
   const {
+    dictionary,
     request,
     selected,
     getUserData,
@@ -23,7 +24,7 @@ function App(props) {
     updateMyWords,
     userInfo,
     isLoggedIn,
-
+    addVideoInfoToDictionary
   } = props;
 
   useEffect(props => {
@@ -43,7 +44,7 @@ function App(props) {
         getUserData(user);
         console.log('유저 결과 확인:', user);
         const myWordsKeys = Object.keys(user.my_words);
-        myWordsKeys.forEach((wordKey)=>{
+        myWordsKeys.forEach(wordKey => {
           updateMyWords(user.my_words[wordKey], 'add');
         });
       }
@@ -59,7 +60,7 @@ function App(props) {
         `${REQUEST_URL.POST_SEARCH_RESULT_FOR_VIDEO}/query=${selected.word}&language=${selected.language}&categories=${selected.categories}`,
         {
           selected,
-        },
+        }
       );
     };
     requestVideoData();
@@ -67,19 +68,16 @@ function App(props) {
     //requestVideoData
     const fetchVideoData = async () => {
       console.log('fetchVideoData 실행');
-      const getResponse = await axios.get(
-        REQUEST_URL.GET_VIDEO_SUCCESS,
-        {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Credentials': true,
-          },
+      const getResponse = await axios.get(REQUEST_URL.GET_VIDEO_SUCCESS, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Credentials': true,
         },
-      );
+      });
       console.log('fromServer:', getResponse.data.searched);
       const foundWord = getResponse.data.searched.word;
-      debugger
+      debugger;
       let info = getResponse.data.searched.videosInfo;
 
       if (info.length !== 0) {
@@ -88,16 +86,18 @@ function App(props) {
             const startTime = Math.floor(Number(caption.start));
             const time = secondsConverter(startTime, 'sec');
             // console.log(time);
-            const mins = oneToTwoDigits(
-              time.hours / 60 + time.minutes,
-            );
+            const mins = oneToTwoDigits(time.hours / 60 + time.minutes);
             const secs = oneToTwoDigits(time.seconds);
             caption.startForDisplay = `${mins}:${secs}`;
           });
         });
         getVideoData({ foundWord, info });
+        if (selected.word === foundWord) {
+          console.log('addVideoInfoToDic');
+          addVideoInfoToDictionary(info);
+        }
       } else {
-        console.log('Cannot find any video!')
+        console.log('Cannot find any video!');
       }
       console.log('가져온 비디오 정보', info);
     };
@@ -112,12 +112,9 @@ function App(props) {
           REQUEST_URL.POST_SEARCH_RESULT_FOR_DICTIONARY,
           {
             word: selected.word,
-          },
+          }
         );
-        console.log(
-          '사전 결과:',
-          postDictionaryResponse.data.dictionary,
-        );
+        console.log('사전 결과:', postDictionaryResponse.data.dictionary);
         let dictionary = postDictionaryResponse.data.dictionary;
         getDictionaryData(dictionary);
       } else {
@@ -131,13 +128,10 @@ function App(props) {
     console.log('post 요청 myWords:', myWords);
     console.log('요청 보낼 데이터:', userInfo.google_id, myWords);
     const requestPostAddedWord = async () => {
-      const postMyWordResponse = await axios.post(
-        REQUEST_URL.POST_ADDED_WORD,
-        {
-          google_id: userInfo.google_id,
-          myWords,
-        },
-      );
+      const postMyWordResponse = await axios.post(REQUEST_URL.POST_ADDED_WORD, {
+        google_id: userInfo.google_id,
+        myWords,
+      });
       console.log('postMyWordResponse:', postMyWordResponse);
     };
     requestPostAddedWord();
@@ -148,21 +142,16 @@ function App(props) {
     let word = request.isReadyToDeleteWord.target;
     console.log(word);
     const requestDeleteWord = async () => {
-      const deleteMyWordResponse = await axios.delete(
-        REQUEST_URL.DELETE_WORD,
-        {
-          data: {
-            google_id: userInfo.google_id,
-            word,
-          }
+      const deleteMyWordResponse = await axios.delete(REQUEST_URL.DELETE_WORD, {
+        data: {
+          google_id: userInfo.google_id,
+          word,
         },
-      );
+      });
       console.log('deleteMyWordResponse:', deleteMyWordResponse);
     };
     requestDeleteWord();
   }
-
-
 
   return (
     <div className="App">
@@ -184,9 +173,7 @@ function App(props) {
       />
       <Route
         path="/myWords"
-        render={renderProps => (
-          <MyWords {...props} {...renderProps} />
-        )}
+        render={renderProps => <MyWords {...props} {...renderProps} />}
       />
       {/* <Route
         path="/myChannels"
