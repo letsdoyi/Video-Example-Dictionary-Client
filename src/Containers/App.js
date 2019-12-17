@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import App from '../Components/App';
 import actionTypes from '../Constants/actionTypes';
+import { display } from '@material-ui/system';
 
 const {
   LOGIN,
@@ -20,7 +21,8 @@ const {
   READY_TO_SHOW_MODAL,
   NOT_READY_TO_SHOW_MODAL,
   UPDATE_MODAL_MESSAGE,
-  RESET_STATE_OF
+  RESET_STATE_OF,
+  ADD_VIDEO_INFO_TO_DICTIONARY
 } = actionTypes;
 
 const mapStateToProps = state => {
@@ -140,6 +142,12 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         type: `${RESET_STATE_OF}_${stateName}`
       });
+    },
+    addVideoInfoToDictionary: function(videosInfo){
+      dispatch({
+        type: ADD_VIDEO_INFO_TO_DICTIONARY,
+        data: videosInfo
+      })
     }
   };
 };
