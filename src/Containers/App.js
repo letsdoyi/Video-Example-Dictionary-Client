@@ -22,7 +22,9 @@ const {
   NOT_READY_TO_SHOW_MODAL,
   UPDATE_MODAL_MESSAGE,
   RESET_STATE_OF,
-  ADD_VIDEO_INFO_TO_DICTIONARY
+  ADD_VIDEO_INFO_TO_DICTIONARY,
+  NO_VIDEOS,
+  ON_ERROR_ABOUT
 } = actionTypes;
 
 const mapStateToProps = state => {
@@ -147,6 +149,12 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         type: ADD_VIDEO_INFO_TO_DICTIONARY,
         data: videosInfo
+      })
+    },
+    onErrorAbout: function(errorType){
+      dispatch({
+        type: ON_ERROR_ABOUT,
+        data: errorType
       })
     }
   };

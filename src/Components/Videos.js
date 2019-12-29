@@ -19,7 +19,7 @@ function Videos(props) {
     updateStartTimeTo,
     updateCurrentTo,
     updateCurrentTimeTo,
-    updateVideoOrder
+    updateVideoOrder,
   } = props;
   let captions;
   let videoId;
@@ -104,24 +104,24 @@ function Videos(props) {
             updateStartTimeTo(caption.start - 0.3, caption.dur);
           }}
         >
-          <span className='caption-content start'>
+          <span className="caption-content start">
             {caption.startForDisplay}
           </span>
-          <span className='caption-content text'>{caption.text}</span>
+          <span className="caption-content text">{caption.text}</span>
         </div>
       );
     });
-    // } else if (videos.foundWord && videos.info.length === 0) {
-    //   return (
-    //     <div className='Videos'>
-    //       <div className='error-no-videos'>
-    //         <div>Cannot find searched word in the categories.</div>
-    //       </div>
-    //     </div>
-    //   );
+  } else if (videos.foundWord === '$NO_DATA') {
+    return (
+      <div className="Videos">
+        <div className="error-no-videos">
+          <div>Cannot find a searched word in the categories.</div>
+        </div>
+      </div>
+    );
   } else {
     return (
-      <div className='videos-loader'>
+      <div className="videos-loader">
         <img src={loader} />
         {dictionary && <Dictionary {...props} />}
       </div>
@@ -137,8 +137,8 @@ function Videos(props) {
       modestbranding: 1,
       loop: 1,
       showinfo: 0,
-      controls: 0
-    }
+      controls: 0,
+    },
   };
 
   function clearTimerArr(arr) {
@@ -210,10 +210,10 @@ function Videos(props) {
   }
 
   return (
-    <div className='Videos'>
+    <div className="Videos">
       {dictionary && <Dictionary {...props} />}
-      <span className='foundWord'>{videos.foundWord}</span>
-      <div className='player-and-captions-container'>
+      <span className="foundWord">{videos.foundWord}</span>
+      <div className="player-and-captions-container">
         <Youtube
           videoId={videoId}
           opts={options}
@@ -222,14 +222,14 @@ function Videos(props) {
           onPlay={onPlayerPlay}
           onPause={onPlayerPause}
         />
-        <div className='player'></div>
+        <div className="player"></div>
 
         <div className={captionsContainerClassBox.join(' ')}>
-          <div className='caption-title-wrapper'>
-            <h1 className='captions-title'>Transcript</h1>
+          <div className="caption-title-wrapper">
+            <h1 className="captions-title">Transcript</h1>
             <Switch
               defaultChecked
-              value='checkedA'
+              value="checkedA"
               inputProps={{ 'aria-label': 'secondary checkbox' }}
               onClick={() => onSwitchToggle()}
             />
@@ -240,29 +240,29 @@ function Videos(props) {
         </div>
         {/* captionsContainerClassBox */}
 
-        <div className='video-controller-container'>
+        <div className="video-controller-container">
           <Button
-            size='large'
+            size="large"
             onClick={() => updateVideoOrder(-1)}
             disabled={videoState.order <= 0}
-            color='secondary'
+            color="secondary"
           >
             <KeyboardArrowLeft />
             BACK
           </Button>
           {videoState.current === 'play' && (
             <div
-              className='repeat-button'
+              className="repeat-button"
               onClick={() => updateCurrentTo('force_stop')}
             >
               STOP
             </div>
           )}
           <Button
-            size='large'
+            size="large"
             onClick={() => updateVideoOrder(1)}
             disabled={videoState.order >= videos.info.length - 1}
-            color='secondary'
+            color="secondary"
           >
             NEXT
             <KeyboardArrowRight />

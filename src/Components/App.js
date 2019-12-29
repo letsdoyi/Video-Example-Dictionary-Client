@@ -24,7 +24,7 @@ function App(props) {
     updateMyWords,
     userInfo,
     isLoggedIn,
-    addVideoInfoToDictionary
+    addVideoInfoToDictionary,
   } = props;
 
   useEffect(props => {
@@ -77,7 +77,6 @@ function App(props) {
       });
       console.log('fromServer:', getResponse.data.searched);
       const foundWord = getResponse.data.searched.word;
-      debugger;
       let info = getResponse.data.searched.videosInfo;
 
       if (info.length !== 0) {
@@ -85,19 +84,20 @@ function App(props) {
           videoInfo.captions.forEach(caption => {
             const startTime = Math.floor(Number(caption.start));
             const time = secondsConverter(startTime, 'sec');
-            // console.log(time);
             const mins = oneToTwoDigits(time.hours / 60 + time.minutes);
             const secs = oneToTwoDigits(time.seconds);
             caption.startForDisplay = `${mins}:${secs}`;
           });
         });
         getVideoData({ foundWord, info });
+        console.log('foundWord', foundWord);
         if (selected.word === foundWord) {
           console.log('addVideoInfoToDic');
           addVideoInfoToDictionary(info);
         }
       } else {
-        console.log('Cannot find any video!');
+        console.log('Cannot find any videos!');
+        getVideoData({ foundWord: '$NO_DATA', info: [] });
       }
       console.log('가져온 비디오 정보', info);
     };
@@ -175,6 +175,10 @@ function App(props) {
         path="/myWords"
         render={renderProps => <MyWords {...props} {...renderProps} />}
       />
+      {/* <Route
+        path="/error"
+        render={renderProps => <Error {...props} {...renderProps} />}
+      /> */}
       {/* <Route
         path="/myChannels"
         render={renderProps => (
