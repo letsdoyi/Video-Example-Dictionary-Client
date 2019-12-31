@@ -123,7 +123,9 @@ function Videos(props) {
     return (
       <div className="videos-loader">
         <img src={loader} />
-        {dictionary && <Dictionary {...props} />}
+        {dictionary !== null && 'results' in dictionary && (
+          <Dictionary {...props} />
+        )}
       </div>
     );
   }
@@ -211,7 +213,9 @@ function Videos(props) {
 
   return (
     <div className="Videos">
-      {dictionary && <Dictionary {...props} />}
+      {dictionary !== null && 'results' in dictionary && (
+        <Dictionary {...props} />
+      )}
       <span className="foundWord">{videos.foundWord}</span>
       <div className="player-and-captions-container">
         <Youtube
