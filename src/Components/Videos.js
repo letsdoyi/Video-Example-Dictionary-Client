@@ -8,8 +8,6 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import './Common.scss';
 import './Videos.scss';
-import videoStateReducer from '../Reducers/videoStateReducer';
-let clickedCaptionStart;
 
 function Videos(props) {
   const {
@@ -51,7 +49,6 @@ function Videos(props) {
     videoInfo = videos.info[videoState.order];
     videoId = videoInfo.id;
     startIndex = videoInfo.startIndex;
-    // let nextIndex;
     captions = videos.info[videoState.order].captions.map((caption, index) => {
       let count = 0;
       const captionStart = Number(caption.start);
@@ -71,35 +68,22 @@ function Videos(props) {
         captionStart <= videoState.currentTime &&
         videoState.currentTime <= captionStart + captionDuration + 0.3
       ) {
-        // nextIndex = index + 1;
         captionClassBox.push('highlight-gray');
       }
-
-      // if (nextIndex === index) {
-      //   captionClassBox.push('highlight-gray');
-      // }
 
       return (
         <div
           key={index}
           className={captionClassBox.join(' ')}
           onClick={() => {
-            //Prevent from not rendering of the same state
-            // debugger;
-            // if(clickedCaptionStart !== caption.start + 0.001){
-            //   clickedCaptionStart = caption.start + 0.001;
-            // } else if(clickedCaptionStart !== caption.start - 0.001){
-            //   clickedCaptionStart = caption.start - 0.001
-            // }
             console.log('count', count);
             if (count === 0) {
               caption.start -= 0.00000000001;
               count++;
+            } else {
+              caption.start += 0.00000000001;
+              count--;
             }
-            // } else {
-            //   caption.start += 0.0001;
-            //   count--;
-            // }
             updateCurrentTo('play');
             updateStartTimeTo(caption.start - 0.3, caption.dur);
           }}
