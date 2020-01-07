@@ -34,7 +34,7 @@ function App(props) {
         withCredentials: 'include',
         headers: {
           Accept: 'application/json',
-          'Access-Control-Allow-Origin' : 'https://api.letsdoyi.com',
+          'Access-Control-Allow-Origin' : '*',
           'Content-Type': 'application/json',
           'Access-Control-Allow-Credentials': true,
         },
