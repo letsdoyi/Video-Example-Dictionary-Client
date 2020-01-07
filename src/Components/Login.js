@@ -12,7 +12,7 @@ function Login(props) {
           <h1>Welcome</h1>
           <a
             className="google-login"
-            href="https://api.getsample.letsdoyi.com/api/auth/google"
+            href="https://api.letsdoyi.com/api/auth/google"
           >
             Login with Google
             <FontAwesomeIcon
