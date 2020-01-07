@@ -2,7 +2,7 @@ const proxy = require('http-proxy-middleware');
 
 module.exports = function(app) {
   app.use(proxy('/api',{
-      target: 'https://api.letsdoyi.com',
+      target: 'https://api.getsample.letsdoyi.com',
       changeOrigin: true,
     }),
   );
