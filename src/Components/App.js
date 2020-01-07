@@ -31,7 +31,7 @@ function App(props) {
     const fetchLoginData = async () => {
       console.log('유저 가져오기');
       const response = await axios.get(REQUEST_URL.LOGIN_SUCCESS, {
-        withCredentials: 'include',
+        // withCredentials: 'include',
         headers: {
           Accept: 'application/json',
           'Access-Control-Allow-Origin' : 'https://api.letsdoyi.com',
