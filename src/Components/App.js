@@ -9,7 +9,7 @@ import axios from 'axios';
 import { oneToTwoDigits, secondsConverter } from '../Utility';
 import './Common.scss';
 import './App.scss';
-import REQUEST_URL from '../Constants/requestUrl';
+import { SERVER_URL, REQUEST } from '../Constants/requestURL';
 
 function App(props) {
   console.log(props);
@@ -30,11 +30,12 @@ function App(props) {
   useEffect(props => {
     const fetchLoginData = async () => {
       console.log('유저 가져오기');
-      const response = await axios.get(REQUEST_URL.LOGIN_SUCCESS, {
-        // withCredentials: 'include',
+      const response = await axios.get(SERVER_URL + REQUEST.LOGIN_SUCCESS, {
+        withCredentials: 'include',
         headers: {
-          Accept: 'application/json',
-          'Access-Control-Allow-Origin' : 'https://api.letsdoyi.com',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': '*',
+          'Access-Control-Allow-Headers': '*',
           'Content-Type': 'application/json',
           'Access-Control-Allow-Credentials': false,
         },
@@ -58,7 +59,8 @@ function App(props) {
     console.log('READEY TO GET VIDEOS');
     const requestVideoData = async () => {
       const postResponse = await axios.post(
-        `${REQUEST_URL.POST_SEARCH_RESULT_FOR_VIDEO}/query=${selected.word}&language=${selected.language}&categories=${selected.categories}`,
+        SERVER_URL +
+          `${REQUEST.POST_SEARCH_RESULT_FOR_VIDEO}/query=${selected.word}&language=${selected.language}&categories=${selected.categories}`,
         {
           selected,
         }
@@ -69,14 +71,18 @@ function App(props) {
     //requestVideoData
     const fetchVideoData = async () => {
       console.log('fetchVideoData 실행');
-      const getResponse = await axios.get(REQUEST_URL.GET_VIDEO_SUCCESS, {
-        headers: {
-          Accept: 'application/json',
-          'Access-Control-Allow-Origin' : 'https://api.letsdoyi.com',
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Credentials': true,
-        },
-      });
+      const getResponse = await axios.get(
+        SERVER_URL + REQUEST.GET_VIDEO_SUCCESS,
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': '*',
+            'Access-Control-Allow-Headers': '*',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': true,
+          },
+        }
+      );
       console.log('fromServer:', getResponse.data.searched);
       const foundWord = getResponse.data.searched.word;
       let info = getResponse.data.searched.videosInfo;
@@ -111,7 +117,7 @@ function App(props) {
       //check vaild word - input 에서 미리 확인하기
       if (selected.word) {
         const postDictionaryResponse = await axios.post(
-          REQUEST_URL.POST_SEARCH_RESULT_FOR_DICTIONARY,
+          SERVER_URL + REQUEST.POST_SEARCH_RESULT_FOR_DICTIONARY,
           {
             word: selected.word,
           }
@@ -130,10 +136,13 @@ function App(props) {
     console.log('post 요청 myWords:', myWords);
     console.log('요청 보낼 데이터:', userInfo.google_id, myWords);
     const requestPostAddedWord = async () => {
-      const postMyWordResponse = await axios.post(REQUEST_URL.POST_ADDED_WORD, {
-        google_id: userInfo.google_id,
-        myWords,
-      });
+      const postMyWordResponse = await axios.post(
+        SERVER_URL + REQUEST.POST_ADDED_WORD,
+        {
+          google_id: userInfo.google_id,
+          myWords,
+        }
+      );
       console.log('postMyWordResponse:', postMyWordResponse);
     };
     requestPostAddedWord();
@@ -144,12 +153,15 @@ function App(props) {
     let word = request.isReadyToDeleteWord.target;
     console.log(word);
     const requestDeleteWord = async () => {
-      const deleteMyWordResponse = await axios.delete(REQUEST_URL.DELETE_WORD, {
-        data: {
-          google_id: userInfo.google_id,
-          word,
-        },
-      });
+      const deleteMyWordResponse = await axios.delete(
+        SERVER_URL + REQUEST.DELETE_WORD,
+        {
+          data: {
+            google_id: userInfo.google_id,
+            word,
+          },
+        }
+      );
       console.log('deleteMyWordResponse:', deleteMyWordResponse);
     };
     requestDeleteWord();

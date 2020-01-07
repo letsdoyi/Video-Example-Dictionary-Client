@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import REQUEST_URL from '../Constants/requestUrl';
+import { SERVER_URL, REQUEST } from '../Constants/requestURL';
 import stateNames from '../Constants/stateNames';
 import './Header.scss';
 import './Common.scss';
@@ -11,12 +11,12 @@ function Header(props) {
   const { SELECTED, DICTIONARY, VIDEOS } = stateNames;
 
   return (
-    <div className='Header'>
-      <div className='menu-container'>
+    <div className="Header">
+      <div className="menu-container">
         {isLoggedIn ? (
           <>
             <Link
-              to='/#'
+              to="/#"
               onClick={() => {
                 resetStateOf(SELECTED);
                 resetStateOf(VIDEOS);
@@ -25,20 +25,20 @@ function Header(props) {
             >
               HOME
             </Link>
-            <Link to='/myWords'>MY WORDS</Link>
+            <Link to="/myWords">MY WORDS</Link>
             <img
-              className='user-profile-image'
+              className="user-profile-image"
               src={userInfo.profile_image_url}
-              alt='user'
+              alt="user"
             />
-            <a className='logout-button' href={REQUEST_URL.LOGOUT}>
+            <a className="logout-button" href={SERVER_URL + REQUEST.LOGOUT}>
               LOGOUT
             </a>
           </>
         ) : (
           <>
             <Link
-              to='/#'
+              to="/#"
               onClick={() => {
                 resetStateOf(SELECTED);
                 resetStateOf(VIDEOS);
@@ -47,7 +47,7 @@ function Header(props) {
             >
               HOME
             </Link>
-            <Link to='/login' className='login-button'>
+            <Link to="/login" className="login-button">
               LOGIN
             </Link>
           </>
