@@ -33,11 +33,9 @@ function App(props) {
       const response = await axios.get(SERVER_URL + REQUEST.LOGIN_SUCCESS, {
         withCredentials: 'include',
         headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': '*',
-          'Access-Control-Allow-Headers': '*',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Credentials': false,
+          'Access-Control-Allow-Credentials': true,
         },
       });
       console.log(response);
@@ -75,9 +73,8 @@ function App(props) {
         SERVER_URL + REQUEST.GET_VIDEO_SUCCESS,
         {
           headers: {
+            Accept: 'application/json',
             'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': '*',
-            'Access-Control-Allow-Headers': '*',
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': true,
           },
