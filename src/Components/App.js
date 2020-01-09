@@ -70,25 +70,10 @@ function App(props) {
       //     selected,
       //   }
       // );
-    };
-    requestVideoData();
-
-    //requestVideoData
-    const fetchVideoData = async () => {
       console.log('fetchVideoData 실행');
-      const getResponse = await axios.get(
-        SERVER_URL + REQUEST.GET_VIDEO_SUCCESS,
-        {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Credentials': true,
-          },
-        }
-      );
-      console.log('fromServer:', getResponse.data.searched);
-      const foundWord = getResponse.data.searched.word;
-      let info = getResponse.data.searched.videosInfo;
+      console.log('fromServer:', postResponse.data.searched);
+      const foundWord = postResponse.data.searched.word;
+      let info = postResponse.data.searched.videosInfo;
 
       if (info.length !== 0) {
         info.forEach(videoInfo => {
@@ -112,7 +97,48 @@ function App(props) {
       }
       console.log('가져온 비디오 정보', info);
     };
-    fetchVideoData();
+    requestVideoData();
+
+    //requestVideoData
+    // const fetchVideoData = async () => {
+    //   console.log('fetchVideoData 실행');
+    //   const getResponse = await axios.get(
+    //     SERVER_URL + REQUEST.GET_VIDEO_SUCCESS,
+    //     {
+    //       headers: {
+    //         Accept: 'application/json',
+    //         'Content-Type': 'application/json',
+    //         'Access-Control-Allow-Credentials': true,
+    //       },
+    //     }
+    //   );
+    //   console.log('fromServer:', getResponse.data.searched);
+    //   const foundWord = getResponse.data.searched.word;
+    //   let info = getResponse.data.searched.videosInfo;
+
+    //   if (info.length !== 0) {
+    //     info.forEach(videoInfo => {
+    //       videoInfo.captions.forEach(caption => {
+    //         const startTime = Math.floor(Number(caption.start));
+    //         const time = secondsConverter(startTime, 'sec');
+    //         const mins = oneToTwoDigits(time.hours / 60 + time.minutes);
+    //         const secs = oneToTwoDigits(time.seconds);
+    //         caption.startForDisplay = `${mins}:${secs}`;
+    //       });
+    //     });
+    //     getVideoData({ foundWord, info });
+    //     console.log('foundWord', foundWord);
+    //     if (selected.word === foundWord) {
+    //       console.log('addVideoInfoToDic');
+    //       addVideoInfoToDictionary(info);
+    //     }
+    //   } else {
+    //     console.log('Cannot find any videos!');
+    //     getVideoData({ foundWord: '$NO_DATA', info: [] });
+    //   }
+    //   console.log('가져온 비디오 정보', info);
+    // };
+    // fetchVideoData();
 
     //requestDictionaryData
 
