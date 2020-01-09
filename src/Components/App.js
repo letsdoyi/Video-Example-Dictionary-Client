@@ -58,11 +58,18 @@ function App(props) {
     const requestVideoData = async () => {
       const postResponse = await axios.post(
         SERVER_URL +
-          `${REQUEST.POST_SEARCH_RESULT_FOR_VIDEO}/query=${selected.word}&language=${selected.language}&categories=${selected.categories}`,
+          `${REQUEST.POST_SEARCH_RESULT_FOR_VIDEO}`,
         {
           selected,
         }
       );
+      // const postResponse = await axios.post(
+      //   SERVER_URL +
+      //     `${REQUEST.POST_SEARCH_RESULT_FOR_VIDEO}/query=${selected.word}&language=${selected.language}&categories=${selected.categories}`,
+      //   {
+      //     selected,
+      //   }
+      // );
     };
     requestVideoData();
 
@@ -74,7 +81,6 @@ function App(props) {
         {
           headers: {
             Accept: 'application/json',
-            'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': true,
           },
