@@ -58,7 +58,7 @@ function App(props) {
     const requestVideoData = async () => {
       const postResponse = await axios.post(
         SERVER_URL +
-          `${REQUEST.POST_SEARCH_RESULT_FOR_VIDEO}`,
+          `${REQUEST.POST_SEARCH_RESULT_FOR_VIDEO}/`,
         {
           selected,
         }
