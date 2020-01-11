@@ -22,7 +22,6 @@ const {
   UPDATE_MODAL_MESSAGE,
   RESET_STATE_OF,
   ADD_VIDEO_INFO_TO_DICTIONARY,
-  NO_VIDEOS,
   ON_ERROR_ABOUT,
 } = actionTypes;
 
@@ -119,9 +118,14 @@ const mapDispatchToProps = dispatch => {
       switch (type) {
         case 'remove':
           dispatch({ type: REMOVE_WORD, data: word });
+          break;
 
         case 'add':
           dispatch({ type: ADD_WORD, data: word });
+          break;
+
+        default:
+          dispatch({ type: null, data: word });
       }
     },
     onReadyModal: function() {
