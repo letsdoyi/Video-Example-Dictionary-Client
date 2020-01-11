@@ -51,5 +51,10 @@
     "enzyme-adapter-react-16": "^1.15.1",
     "jest": "^24.9.0",
     "react-test-renderer": "^16.11.0"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "singleQuote": true
   }
 }
