@@ -203,7 +203,8 @@ function Home(props) {
       <div className="video-background-container">
         <div className="video-cover"></div>
         <iframe
-          src={`https://www.youtube.com/embed/Oa7BvzZZP0g?autoplay=1&loop=1&controls=0&disablekb=0&start=4&iv_load_policy=3&ref=0&mute=1`}
+          title={'video-controller'}
+          src={'https://www.youtube.com/embed/Oa7BvzZZP0g?autoplay=1&loop=1&controls=0&disablekb=0&start=4&iv_load_policy=3&ref=0&mute=1'}
           frameBorder="0"
           allow="autoplay"
         ></iframe>
