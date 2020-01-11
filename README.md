@@ -2,7 +2,7 @@
 
 유튜브를 통해 원어민의 언어 사용례를 제공하는 어학 애플리케이션
 
-- README 영어버전 [[Link to english version]](https://github.com/letsdoyi/getSample-server/blob/master/README_Eng.md)
+- README 영어버전 [[Link to english version]](https://github.com/letsdoyi/getSample-client/blob/master/README_Eng.md)
 - 데모 비디오 [[Link to demo video]](https://www.youtube.com/watch?v=OFxVRNepHiw)
 
 ### Screen Shots
