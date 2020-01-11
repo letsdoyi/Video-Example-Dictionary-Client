@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import App from '../Components/App';
 import actionTypes from '../Constants/actionTypes';
-import { display } from '@material-ui/system';
 
 const {
   LOGIN,
@@ -75,7 +74,8 @@ const mapDispatchToProps = dispatch => {
       dispatch({ type: REQUEST_VIDEOS });
       ev.preventDefault();
     },
-    // onChannelSearchSubmit: function(ev) {
+    // Will be updated
+    //onChannelSearchSubmit: function(ev) {
     //   dispatch({ type: 'REQUEST_CHANNELS' });
     //   ev.preventDefault();
     // },
