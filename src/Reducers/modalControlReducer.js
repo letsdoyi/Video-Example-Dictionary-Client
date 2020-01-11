@@ -1,4 +1,4 @@
-import actionTypes from "../Constants/actionTypes";
+import actionTypes from '../Constants/actionTypes';
 const { READY_TO_SHOW_MODAL, NOT_READY_TO_SHOW_MODAL } = actionTypes;
 
 export function modalControlReducer(state = false, action) {

@@ -8,10 +8,7 @@ function Error(props) {
   const { SELECTED, DICTIONARY, VIDEOS } = stateNames;
 
   return (
-    <div className='Error'>
-      This is 404 Error page!
-      There is no results!
-    </div>
+    <div className="Error">This is 404 Error page! There is no results!</div>
   );
 }
 

@@ -1,6 +1,6 @@
 $google-color-red: rgb(219, 68, 55);
-$dark-background: rgba(0,0,0,.5);
-$pink : #F50057;
+$dark-background: rgba(0, 0, 0, 0.5);
+$pink: #f50057;
 $dark-pink: rgb(196, 0, 68);
 
 .Login {
@@ -25,7 +25,7 @@ $dark-pink: rgb(196, 0, 68);
   width: 30%;
   height: 500px;
   flex-wrap: wrap;
-  background-color: rgb(0,0,0);
+  background-color: rgb(0, 0, 0);
   color: white;
   border: 1px solid $pink;
   border-radius: 3px;
@@ -59,7 +59,6 @@ $dark-pink: rgb(196, 0, 68);
 
 /* On screens that are 992px or less, set the background color to blue */
 @media screen and (max-width: 992px) {
-
 }
 
 /* On screens that are 750px or less, set the background color to olive */

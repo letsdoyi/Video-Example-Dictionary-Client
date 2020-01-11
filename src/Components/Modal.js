@@ -7,7 +7,7 @@ function Modal(props) {
   console.log(props);
 
   const classBox = ['Modal'];
-  if(!isReadyToShowModal){
+  if (!isReadyToShowModal) {
     classBox.push('display-none');
   }
   return (

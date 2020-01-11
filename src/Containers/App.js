@@ -24,7 +24,7 @@ const {
   RESET_STATE_OF,
   ADD_VIDEO_INFO_TO_DICTIONARY,
   NO_VIDEOS,
-  ON_ERROR_ABOUT
+  ON_ERROR_ABOUT,
 } = actionTypes;
 
 const mapStateToProps = state => {
@@ -72,7 +72,7 @@ const mapDispatchToProps = dispatch => {
       });
     },
     onVideoSearchSubmit: function(ev) {
-      dispatch({ type: REQUEST_VIDEOS});
+      dispatch({ type: REQUEST_VIDEOS });
       ev.preventDefault();
     },
     // onChannelSearchSubmit: function(ev) {
@@ -140,27 +140,24 @@ const mapDispatchToProps = dispatch => {
         data: text,
       });
     },
-    resetStateOf: function(stateName){
+    resetStateOf: function(stateName) {
       dispatch({
-        type: `${RESET_STATE_OF}_${stateName}`
+        type: `${RESET_STATE_OF}_${stateName}`,
       });
     },
-    addVideoInfoToDictionary: function(videosInfo){
+    addVideoInfoToDictionary: function(videosInfo) {
       dispatch({
         type: ADD_VIDEO_INFO_TO_DICTIONARY,
-        data: videosInfo
-      })
+        data: videosInfo,
+      });
     },
-    onErrorAbout: function(errorType){
+    onErrorAbout: function(errorType) {
       dispatch({
         type: ON_ERROR_ABOUT,
-        data: errorType
-      })
-    }
+        data: errorType,
+      });
+    },
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -15,21 +15,13 @@ describe('Dictionary Component', () => {
       results: [
         {
           definition: 'sample word',
-          synonyms: [
-            'sample word 1',
-            'sample word 2',
-            'sample word 3',
-          ],
+          synonyms: ['sample word 1', 'sample word 2', 'sample word 3'],
         },
       ],
     },
   };
 
-  const wrapper = mount(
-    <Dictionary
-      {...props}
-    />
-  );
+  const wrapper = mount(<Dictionary {...props} />);
   it('renders without crushing', () => {});
   xit('triggers handleAddButtonClick on Tooltip click', done => {
     const handleAddButtonClick = jest.fn();

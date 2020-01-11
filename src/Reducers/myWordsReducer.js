@@ -1,8 +1,5 @@
 import actionTypes from '../Constants/actionTypes';
-const {
-  ADD_WORD,
-  REMOVE_WORD,
-} = actionTypes;
+const { ADD_WORD, REMOVE_WORD } = actionTypes;
 
 function myWordsReducer(state = {}, action) {
   switch (action.type) {

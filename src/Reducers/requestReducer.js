@@ -5,11 +5,7 @@ const initialState = {
   isReadyToPostWord: false,
   isReadyToDeleteWord: { value: false, target: null },
 };
-const {
-  REQUEST_VIDEOS,
-  REQUEST_POST_WORD,
-  REQUEST_DELETE_WORD,
-} = actionTypes;
+const { REQUEST_VIDEOS, REQUEST_POST_WORD, REQUEST_DELETE_WORD } = actionTypes;
 
 function requestReducer(state = initialState, action) {
   switch (action.type) {
@@ -35,7 +31,7 @@ function requestReducer(state = initialState, action) {
         ...state,
         isReadyToDeleteWord: {
           value: true,
-          target: action.data
+          target: action.data,
         },
       };
 

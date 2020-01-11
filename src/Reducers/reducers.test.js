@@ -21,16 +21,14 @@ describe('Reducers Test', () => {
     const initialState = false;
 
     it('should provide the initial state', () => {
-      expect(modalControlReducer(undefined, {})).toEqual(
-        initialState,
-      );
+      expect(modalControlReducer(undefined, {})).toEqual(initialState);
     });
 
     it('should handle READY_TO_SHOW_MODAL action', () => {
       expect(
         modalControlReducer(initialState, {
           type: 'READY_TO_SHOW_MODAL',
-        }),
+        })
       ).toEqual(true);
     });
 
@@ -38,7 +36,7 @@ describe('Reducers Test', () => {
       expect(
         modalControlReducer('', {
           type: 'NOT_READY_TO_SHOW_MODAL',
-        }),
+        })
       ).toEqual(false);
     });
   });
@@ -48,9 +46,7 @@ describe('Reducers Test', () => {
     const sampleText = 'It is sample modal text';
 
     it('should provide the initial state', () => {
-      expect(modalMessageReducer(undefined, {})).toEqual(
-        initialState,
-      );
+      expect(modalMessageReducer(undefined, {})).toEqual(initialState);
     });
 
     it('should handle UPDATE_MODAL_MESSAGE action', () => {
@@ -58,7 +54,7 @@ describe('Reducers Test', () => {
         modalMessageReducer(initialState, {
           type: 'UPDATE_MODAL_MESSAGE',
           data: sampleText,
-        }),
+        })
       ).toEqual(sampleText);
     });
   });
@@ -76,7 +72,7 @@ describe('Reducers Test', () => {
         userReducer(initialState, {
           type: 'LOGIN',
           data: sampleUserInfo,
-        }),
+        })
       ).toEqual(sampleUserInfo);
     });
   });
@@ -98,7 +94,7 @@ describe('Reducers Test', () => {
         selectedReducer(initialState, {
           type: 'TYPED_WORD',
           data: sampleWord,
-        }),
+        })
       ).toEqual({ ...initialState, word: sampleWord });
     });
 
@@ -107,7 +103,7 @@ describe('Reducers Test', () => {
         selectedReducer(initialState, {
           type: 'CHECKED_LANGUAGE',
           data: sampleLanguage,
-        }),
+        })
       ).toEqual({ ...initialState, language: sampleLanguage });
     });
 
@@ -116,12 +112,12 @@ describe('Reducers Test', () => {
         selectedReducer(initialState, {
           type: 'CHECKED_CATEGORY',
           data: 'film',
-        }),
+        })
       ).toEqual(
         expect.objectContaining({
           language: 'en',
           categories: expect.arrayContaining(['film']),
-        }),
+        })
       );
     });
 
@@ -136,13 +132,13 @@ describe('Reducers Test', () => {
           {
             type: 'CHECKED_CATEGORY',
             data: 'film',
-          },
-        ),
+          }
+        )
       ).toEqual(
         expect.objectContaining({
           language: 'en',
           categories: expect.arrayContaining(['talk']),
-        }),
+        })
       );
     });
 
@@ -158,17 +154,13 @@ describe('Reducers Test', () => {
           {
             type: 'CHECKED_CATEGORY',
             data: 'comedy',
-          },
-        ),
+          }
+        )
       ).toEqual(
         expect.objectContaining({
           language: 'en',
-          categories: expect.arrayContaining([
-            'film',
-            'talk',
-            'tech',
-          ]),
-        }),
+          categories: expect.arrayContaining(['film', 'talk', 'tech']),
+        })
       );
     });
   });
@@ -186,7 +178,7 @@ describe('Reducers Test', () => {
         dictionaryReducer(initialState, {
           type: 'LOADED_DICTIONARY_DATA',
           data: result,
-        }),
+        })
       ).toEqual(result);
     });
   });

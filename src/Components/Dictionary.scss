@@ -1,4 +1,4 @@
-$pink : #F50057;
+$pink: #f50057;
 
 .Dictionary {
   display: flex;
@@ -7,11 +7,11 @@ $pink : #F50057;
   color: rgb(255, 255, 255);
 }
 
-.dictionary-contents{
+.dictionary-contents {
   display: flex;
 }
 
-.add-button{
+.add-button {
   display: inline-block;
 }
 
@@ -20,7 +20,7 @@ $pink : #F50057;
   span {
     margin-right: 10px !important;
   }
-  br{
+  br {
     line-height: 30px;
   }
 
@@ -32,10 +32,11 @@ $pink : #F50057;
   .word {
     font-size: 30px;
   }
-  .definition, .synonyms {
+  .definition,
+  .synonyms {
     font-size: 16px;
   }
-  .definition{
+  .definition {
     margin-top: 10px;
   }
 }

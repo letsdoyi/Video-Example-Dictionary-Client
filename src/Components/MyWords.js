@@ -10,7 +10,6 @@ function MyWords(props) {
     updateMyWords,
     onDeleteWordClick,
     onReadyModal,
-    isReadyToShowModal,
     UpdateModalMessage,
     getVideoData,
     history,
@@ -29,7 +28,7 @@ function MyWords(props) {
   if (myWordsKeys.length) {
     myWordList = myWordsKeys.map(key => {
       resultsList = myWords[key]['results'].map((result, index) => {
-        const partOfSpeech = result['partOfSpeech'];
+        // const partOfSpeech = result['partOfSpeech'];
         return (
           <div key={index} className="results-List">
             <div className="definition">- {result['definition']}</div>

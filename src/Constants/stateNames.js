@@ -1,7 +1,7 @@
 const stateNames = {
   SELECTED: 'SELECTED',
   VIDEOS: 'VIDEOS',
-  DICTIONARY: 'DICTIONARY'
+  DICTIONARY: 'DICTIONARY',
 };
 
 export default stateNames;

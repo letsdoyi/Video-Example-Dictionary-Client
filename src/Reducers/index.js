@@ -20,5 +20,5 @@ export default combineReducers({
   videos: videosReducer,
   videoState: videoStateReducer,
   dictionary: dictionaryReducer,
-  myWords: myWordsReducer
+  myWords: myWordsReducer,
 });

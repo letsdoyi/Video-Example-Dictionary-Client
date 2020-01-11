@@ -5,10 +5,7 @@ const initialState = {
   foundWord: null,
   info: [],
 };
-const {
-  LOADED_VIDEO_DATA,
-  RESET_STATE_OF,
-} = actionTypes;
+const { LOADED_VIDEO_DATA, RESET_STATE_OF } = actionTypes;
 const { VIDEOS } = stateNames;
 
 function videosReducer(state = initialState, action) {

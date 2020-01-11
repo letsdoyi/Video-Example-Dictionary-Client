@@ -1,18 +1,18 @@
-$pink : #F50057;
+$pink: #f50057;
 
 .MyWords {
   min-height: calc(100vh - 50.5px);
   background-color: rgb(0, 0, 0);
   color: rgb(255, 255, 255);
 
-  .noWords{
+  .noWords {
     padding: 10%;
     color: $pink;
     font-weight: 100;
     font-size: 40px;
   }
 
-  div div:last-child{
+  div div:last-child {
     margin-bottom: 0;
   }
 
@@ -26,7 +26,7 @@ $pink : #F50057;
     padding: 30px;
     margin: 0 30px 30px 30px;
 
-    .word-headline{
+    .word-headline {
       margin-bottom: 20px;
     }
 
