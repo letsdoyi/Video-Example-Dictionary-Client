@@ -2,6 +2,8 @@
 
 This application provides native speakers' language usages by YouTube videos.
 
+- README 한국어 버전 [[Link to Korean version]](https://github.com/letsdoyi/getSample-client/blob/master/README.md)
+- Previous Git Records [[Link to Git Records]](https://github.com/letsdoyi/getSample-git-records)
 [[Link to demo video]](https://www.youtube.com/watch?v=OFxVRNepHiw)
 
 ![](getSample_4Screenshots.png)
